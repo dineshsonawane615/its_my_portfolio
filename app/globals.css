@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-theme="dark"] {
+  --bg: 13 17 23;
+  --panel: 22 27 34;
+  --line: 48 54 61;
+  --fg: 230 237 243;
+  --muted: 139 148 158;
+  --accent: 88 166 255;
+  --ok: 63 185 80;
+  --violet: 188 140 255;
+  --amber: 210 153 34;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: 255 255 255;
+  --panel: 246 248 250;
+  --line: 208 215 222;
+  --fg: 31 35 40;
+  --muted: 101 109 118;
+  --accent: 9 105 218;
+  --ok: 26 127 55;
+  --violet: 130 80 223;
+  --amber: 154 103 0;
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    font-size: 15px;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+  }
+  ::selection {
+    background: rgb(var(--accent) / 0.3);
+  }
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-lg border border-line bg-panel;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border border-line px-2.5 py-0.5 font-mono text-xs text-muted;
+  }
+  .btn {
+    @apply inline-flex items-center gap-2 rounded-md border border-line bg-panel px-4 py-2 text-sm font-medium text-fg transition-colors hover:border-muted hover:bg-line/40;
+  }
+  .btn-primary {
+    @apply border-ok/60 bg-ok text-white hover:bg-ok/90 hover:border-ok;
+  }
+}
+
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgb(var(--accent) / 0.12), transparent 60%),
+    radial-gradient(40rem 24rem at -5% 30%, rgb(var(--violet) / 0.07), transparent 60%),
+    linear-gradient(rgb(var(--line) / 0.28) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, rgb(var(--line) / 0.28) 1px, transparent 1px) 0 0 / 44px 44px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .animate-blink, .animate-pulseDot { animation: none; }
+}
