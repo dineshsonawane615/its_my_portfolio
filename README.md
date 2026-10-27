@@ -35,3 +35,5 @@ npm install && npm run dev
 ```
 
 Open http://localhost:3000. To edit any text, project or link, change `data/portfolio.js`.
+
+live Link - https://dineshs-seven.vercel.app/
